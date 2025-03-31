@@ -111,21 +111,21 @@ int ejercicio30();
 
 int main()
 {
-    ejercicio2();
+    /*ejercicio2();
     ejercicio4();
     ejercicio6();
     ejercicio8();
     ejercicio10();
     ejercicio12();
-    ejercicio14();
+    ejercicio14();*/
     ejercicio16();
-    ejercicio18();
+    /*ejercicio18();
     ejercicio20();
     ejercicio22();
     ejercicio24();
     ejercicio26();
     ejercicio28();
-    ejercicio30();
+    ejercicio30();*/
     return 0;
 }
 
@@ -192,7 +192,7 @@ int ejercicio8()
 
 int ejercicio10()
 {
-    cout << "10. multiplos: " << endl << endl ;;
+    cout << "10. multiplos: " << endl << endl ;
     int i ;
     cout << "ingrese un numero: ";
     cin >> i;
@@ -222,9 +222,9 @@ int ejercicio14()
 {
     cout << "14. Columnas " << endl << endl ;
 
-    for (int k = 1, l = 50; k <= 50; k++, l--){
+    for (int k = 1, l = 50; k <= 50; k++, l--)
 
-    cout <<  k << "\t" << l << endl<< endl;}
+    cout <<  k << "\t" << l << endl<< endl;
     return 0;
 }
 
