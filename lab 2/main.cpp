@@ -463,6 +463,95 @@ int problema13() {
 
     return 0;
 }
+// Problema 14
+const int N = 5;
+
+void lmatriz(int matriz[N][N]) {
+    int valor = 1;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            matriz[i][j] = valor++;
+        }
+    }
+}
+
+void impm(int matriz[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cout << matriz[i][j] << "\t";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+void rotar90(int origen[N][N], int destino[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            destino[j][N - 1 - i] = origen[i][j];
+        }
+    }
+}
+
+int problema14() {
+    int matriz[N][N];
+    int rotada90[N][N];
+    int rotada180[N][N];
+    int rotada270[N][N];
+
+    lmatriz(matriz);
+
+    cout << "Matriz original:" << endl;
+    impm(matriz);
+
+    rotar90(matriz, rotada90);
+    cout << "Matriz rotada 90°:" << endl;
+    impm(rotada90);
+
+    rotar90(rotada90, rotada180);
+    cout << "Matriz rotada 180°:" << endl;
+    impm(rotada180);
+
+    rotar90(rotada180, rotada270);
+    cout << "Matriz rotada 270°:" << endl;
+    impm(rotada270);
+
+    return 0;
+}
+// Problema 15 rectangulo
+
+void interseccionRectangulos(int A[4], int B[4], int C[4]) {
+    int x1 = max(A[0], B[0]);
+    int y1 = max(A[1], B[1]);
+
+    int x2 = min(A[0] + A[2], B[0] + B[2]);
+    int y2 = min(A[1] + A[3], B[1] + B[3]);
+
+    int ancho = x2 - x1;
+    int alto = y2 - y1;
+
+    if (ancho > 0 && alto > 0) {
+        C[0] = x1;
+        C[1] = y1;
+        C[2] = ancho;
+        C[3] = alto;
+    } else {
+
+        C[0] = C[1] = C[2] = C[3] = 0;
+    }
+}
+
+int problema15() {
+    int A[4] = {0, 0, 8, 4};
+    int B[4] = {5, 2, 6, 7};
+    int C[4];
+
+    interseccionRectangulos(A, B, C);
+
+    cout << "Rectángulo intersección: {" << C[0] << ", " << C[1] << ", " << C[2] << ", " << C[3] << "}" << endl;
+
+    return 0;
+}
 
 int main() {
 
@@ -478,7 +567,10 @@ int main() {
     problema9();
     problema10();
     problema11();
-    problema12();*/
-    problema13();
+    problema12();
+    problema13();*/
+    problema14();
+    //problema15();
+
     return 0;
 }
