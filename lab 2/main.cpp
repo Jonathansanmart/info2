@@ -21,10 +21,24 @@ void fun_b(int a[], int tam) {
 
 int ejercicio1() {
     int array[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    cout << "Antes de invertir: ";
+    for (int i = 0; i < 10; i++) {
+        cout << array[i] << " ";
+    }
+    cout << endl;
+
     fun_b(array, 10);
+
+    // Mostrar después
+    cout << "Luego de invertir: ";
+    for (int i = 0; i < 10; i++) {
+        cout << array[i] << " ";
+    }
+    cout << endl;
+
     return 0;
 }
-
 // EJERCICIO 2 Calcular suma y promedio con punteros
 
 void fun_c(double *a, int n, double *promedio, double *suma) {
@@ -35,7 +49,19 @@ void fun_c(double *a, int n, double *promedio, double *suma) {
     *promedio = *suma / n;
 }
 
+int ejercicio2() {
+    double notas[] = {3.5, 4.0, 2.8, 5.0, 4.2};
+    int cantidad = 5;
+    double suma = 0.0;
+    double promedio = 0.0;
 
+    fun_c(notas, cantidad, &promedio, &suma);
+
+    cout << "Suma de notas: " << suma << endl;
+    cout << "Promedio de notas: " << promedio << endl;
+
+    return 0;
+}
 // EJERCICIO 3 Punteros en matrices
 
 unsigned short b[4][2] = {
@@ -45,6 +71,25 @@ unsigned short b[4][2] = {
     {99, 3}
 };
 
+/*Elemento	Dirección (Hex)
+b[0][0]	0DA12
+b[0][1]	0DA14
+b[1][0]	0DA16
+b[1][1]	0DA18
+b[2][0]	0DA1A
+b[2][1]	0DA1C
+b[3][0]	0DA1E
+b[3][1]	0DA20 *
+Expresión	Valor / Dirección	Explicación
+b	Dirección de b[0] → apunta a {77, 50}	Es la dirección del primer subarreglo b[0]
+b + 2	Dirección de b[2]	Apunta al subarreglo {28, 39}
+*(b + 2)	Arreglo {28, 39}	Es b[2], o sea, el arreglo de esa fila
+*(b + 2) + 1	Dirección de b[2][1]	Mueve un elemento dentro de b[2]
+*(*(b + 2) + 1)	Valor 39	Accede al valor b[2][1]
+b[3][1]	Valor 3	Accede directamente a ese elemento
+b++	 Error de compilación	Los arreglos no se pueden incrementar (punteros sí, pero arreglos no)
+
+*/
 
 // PROBLEMA 1 Billetes y monedas
 
@@ -52,6 +97,7 @@ int problema1() {
     int monedas[] = {50000,20000,10000,5000,2000,1000,500,200,100,50};
     int contar[10] = {0};
     int canti, falta;
+
 
     cout << "Ingrese cuanto dinero desea contar: ";
     cin >> canti;
@@ -128,6 +174,7 @@ int problema3() {
     if (compararCadenas(cadena1, cadena2)) {
         cout << "Las cadenas son iguales." << endl;
     } else {
+
         cout << "Las cadenas son diferentes." << endl;
     }
 
@@ -552,11 +599,121 @@ int problema15() {
 
     return 0;
 }
+//Problema 16 Caminos
+
+long long factorial(int n) {
+    long long resultado = 1;
+    for (int i = 2; i <= n; i++) {
+        resultado *= i;
+    }
+    return resultado;
+}
+
+// Función que calcula el número de caminos
+long long caminos(int n) {
+    return factorial(2 * n) / (factorial(n) * factorial(n));
+}
+
+int problema16() {
+    int n;
+
+    cout << "Ingrese el tamaño de la malla (n x n): ";
+    cin >> n;
+
+    long long resultado = caminos(n);
+    cout << "Para una malla de " << n << "x" << n << " puntos hay " << resultado << " caminos." << endl;
+
+    return 0;
+}
+
+// Problema 17
+
+int sumaDivisores(int n) {
+    int suma = 0;
+    for (int i = 1; i <= n / 2; i++) {
+        if (n % i == 0) {
+            suma += i;
+        }
+    }
+    return suma;
+}
+
+int problema17() {
+    int limite;
+    cout << "Ingrese un número: ";
+    cin >> limite;
+
+    int sumaTotal = 0;
+
+    for (int a = 2; a < limite; a++) {
+        int b = sumaDivisores(a);
+        if (b != a && b < limite && sumaDivisores(b) == a) {
+            sumaTotal += a;
+        }
+    }
+
+    cout << "El resultado de la suma es: " << sumaTotal << endl;
+    return 0;
+}
+// Problema 18
+const int na = 10;
+
+// Función para calcular factorial
+int factoriale(int na) {
+    int res = 1;
+    for (int i = 2; i <= na; i++)
+        res *= i;
+    return res;
+}
+
+// Función para encontrar la n-ésima permutación
+void encontrarPermutacion(int n) {
+    int numeros[na] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    bool usados[na] = {false}; // Para marcar qué números ya han sido usados
+
+    n = n - 1; // Convertir a índice base 0
+
+    cout << "La permutación es: ";
+
+    for (int i = na - 1; i >= 0; i--) {
+        int f = factoriale(i);
+        int index = n / f;
+        n = n % f;
+
+        // Buscar el dígito no usado en la posición 'index'
+        int cuenta = -1;
+        for (int j = 0; j < na; j++) {
+            if (!usados[j])
+                cuenta++;
+            if (cuenta == index) {
+                cout << numeros[j];
+                usados[j] = true;
+                break;
+            }
+        }
+    }
+
+    cout << endl;
+}
+
+int problema18() {
+    int posicion;
+    cout << "Ingrese la posición (1 a 3628800): ";
+    cin >> posicion;
+
+    if (posicion < 1 || posicion > 3628800) {
+        cout << "Número fuera de rango. Debe estar entre 1 y 3628800." << endl;
+    } else {
+        encontrarPermutacion(posicion);
+    }
+
+    return 0;
+}
 
 int main() {
 
-    /*ejercicio1();
-    problema1();
+  /*ejercicio1();
+   problema1();*/
     problema2();
     problema3();
     problema4();
@@ -568,9 +725,12 @@ int main() {
     problema10();
     problema11();
     problema12();
-    problema13();*/
+    problema13();
     problema14();
-    //problema15();
+    problema15();
+    problema16();
+    problema17();
+    problema18();
 
     return 0;
 }
